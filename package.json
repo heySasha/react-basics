@@ -1,19 +1,28 @@
 {
-  "name": "react-basics",
+  "name": "react-todo",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "React Todo application",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server --inline --hot --content-base ./public",
+    "build": "webpack -p"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/heySasha/react-basics.git"
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/heySasha/react-basics/issues"
+  "dependencies": {
+    "react": "15.4.2",
+    "react-dom": "15.4.2"
   },
-  "homepage": "https://github.com/heySasha/react-basics#readme"
+  "devDependencies": {
+    "babel-core": "6.22.0",
+    "babel-loader": "6.2.10",
+    "babel-preset-es2015": "6.22.0",
+    "babel-preset-react": "6.22.0",
+    "react-hot-loader": "1.3.1",
+    "webpack": "1.14.0",
+    "webpack-dev-server": "1.16.2"
+  }
 }
