@@ -4,22 +4,7 @@ import ReactDOM from 'react-dom';
 import todos from './todos';
 import Header from './components/Header';
 import Todo from './components/Todo';
-/*
-const title = React.createElement('h1', null, 'React Todo');
-const subtitle = React.createElement('p', { className: 'subtitle' }, 'This is my first app');
-const container = React.createElement('div', null, title, subtitle);
-*/
-
-/*
-function App() {
-    return (
-        <div>
-            <h1>React Todo</h1>
-            <p className="subtitle">This is my first app</p>
-        </div>
-    );
-}
-*/
+import Form from './components/Form';
 
 class App extends React.Component {
     constructor(props) {
@@ -28,19 +13,67 @@ class App extends React.Component {
         this.state = {
             todos: this.props.initialData
         };
+
+        this.handleStatusChange = this.handleStatusChange.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
+    }
+
+    nextId() {
+        this._nextId = this._nextId || 4;
+        return this._nextId++;
+    }
+
+    handleStatusChange(id) {
+        let todos = this.state.todos.map(todo => {
+            if (todo.id === id) {
+                todo.completed = !todo.completed;
+            }
+
+            return todo;
+        });
+
+        this.setState({todos});
+    }
+
+    handleDelete(id) {
+        let todos = this.state.todos.filter(todo => todo.id !== id)
+
+        this.setState({todos});
+    }
+
+    handleAdd(title) {
+        let todo = {
+            id: this.nextId(),
+            title,
+            completed: false
+        };
+
+        let todos = [...this.state.todos, todo];
+
+        this.setState({ todos });
     }
 
     render() {
         return (
             <main>
-                <Header title={this.props.title} />
+                <Header title={this.props.title} todos={this.state.todos} />
 
                 <section className="todo-list">
                     {this.state.todos.map(todo =>
-                        <Todo key={todo.id} title={todo.title} completed={todo.completed}/>)
+                        <Todo
+                            key={todo.id}
+                            id={todo.id}
+                            title={todo.title}
+                            completed={todo.completed}
+                            onSatusChange={this.handleStatusChange}
+                            onDelete={this.handleDelete}
+                        />)
                     }
 
                 </section>
+
+                <Form onAdd={this.handleAdd}/>
             </main>
         );
     }
