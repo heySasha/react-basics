@@ -13,7 +13,7 @@ function Button(props) {
     );
 }
 
-Button.propTYpes = {
+Button.propTypes = {
     icon: React.PropTypes.string,
     className: React.PropTypes.string,
     onClick: React.PropTypes.func,
